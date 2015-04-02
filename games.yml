@@ -1,0 +1,542 @@
+games:
+  bocata:
+    name: "\n   Make the bocata!"
+    startingRoom: "house"
+    description: "\n   You are at home.\n   Go to the despensus (XD) and make a big bocata :)"
+    rooms:
+      house:
+        arrivalText: "I'm home.... and I'm hungry!"
+        options:
+          '1':
+            text: "Go to the street"
+            nextRoom: "street"
+            required:
+              houseKey: 1
+          '2':
+            text: "Play with the Play Station 5"
+            action:
+              text: "You dind't find your PS5 (you never will...) but while searching you found a key..."
+              items: 
+                houseKey: 1
+              repeatTimes: 1
+          '3':
+            text: "Go to my bedroom"
+            action:
+              text: "Wow!!!! You found a gun! What was this doing here...."
+              items:
+                gun: 1
+                bullet: 10
+              repeatTimes: 1
+            nextRoom: "house_bedroom"
+          '4':
+            text: "Go to the bathroom"
+            action:
+              text: "Strangely, there is no door to get into the bathroom... but at least you found something in the way..."
+              items:
+                bullet: 20
+              repeatTimes: 3
+      house_bedroom:
+        arrivalText: "I'm in my bedroom. "
+        options:
+          '1':
+            text: "Tidy up"
+            action:
+              text: "This is boring........."
+              repeatTimes: -1
+          '2':
+            text: "Go back to the main entrance of my house..."
+            nextRoom: "house"
+      street:
+        arrivalText: "Street"
+        options:
+          '1':
+            text: "Go back home..."
+            nextRoom: "house"
+            required:
+              houseKey: 1
+          '2':
+            text: "Shoot someone"
+            required:
+              bullet: 1
+            action:
+              text: "Be careful!!! "
+              repeatTimes: -1
+          '3':
+            text: "Go to the despensus"
+            nextRoom: "despensus_entrance"
+            action:
+              text: "There was some bread in the door.... WTF?"
+              items:
+                bread: 1
+              repeatTimes: 2
+      despensus_entrance:
+        arrivalText: "Hum... it's smelly here...."
+        options:
+          '1':
+            text: "Go to the storage room"
+            nextRoom: "despensus_storage"
+            action:
+              text: "MMmm.... cheeeeeeeese... And more bread!!! :)"
+              items:
+                cheese: 1
+                bread: 1
+              repeatTimes: 1
+          '2':
+            text: "Shoot someone!"
+            required:
+              bullet: 1
+            action:
+              text: "OMG! You killed him! But... nothing to worry about: you stole his knife ;)"
+              items:
+                knife: 1
+              repeatTimes: 1
+          '3':
+            text: "Go to the kitchen"
+            nextRoom: "despensus_kitchen"
+      despensus_kitchen:
+        arrivalText: "Kitcheeeennnnn!!!! :)"
+        options:
+          '1':
+            text: "Open fridge"
+            action:
+              text: "Nothing here... :("
+              repeatTimes: -1
+          '2':
+            text: "Make a big bocata :)"
+            required:
+              bread: 2
+              cheese: 1
+              knife: 1
+            action:
+              text: "Making bocata... :)"
+              items:
+                bocata: 1
+              repeatTimes: -1
+            nextRoom: "despensus_kitchen_eatBocata"
+          '3':
+            text: "Back to despensus"
+            nextRoom: "despensus_entrance"
+      despensus_storage:
+        arrivalText: "It's cold in here..."
+        options:
+          '1':
+            text: "Back to despensus, quickly, before I freeze..."
+            nextRoom: "despensus_entrance"
+      despensus_kitchen_eatBocata:
+        arrivalText: "This bocata ....."
+        options:
+          '1':
+            text: "Eat bocata"
+            required:
+              bocata: 1
+            action:
+              text: "Delicious...."
+              repeatTimes: -1
+              win:
+                text: "Wow!!! That was a big bocata. I'm full now!"
+    requirements:
+      houseKey: 
+        name: "house key"
+        syntaxDisplay: 
+          s: "a house key"
+          p: "$N house keys"
+          inv: "house keys: $N"
+        amount: 0
+        use: false
+        show: true
+      gun:
+        name: "gun"
+        syntaxDisplay:
+          s: "a gun"
+          p: "$N guns"
+          inv: "guns: $N"
+        amount: 0
+        use: false
+        show: true
+      bullet:
+        name: "bullet"
+        syntaxDisplay:
+          s: "a bullet"
+          p: "$N bullets"
+          inv: "bullets: $N"
+        amount: 3
+        use: true
+        show: true
+      bread:
+        name: "bread"
+        syntaxDisplay:
+          s: "some bread"
+          p: "some bread($N units)"
+          inv: "bread: $N"
+        amount: 0
+        use: true
+        show: true
+      cheese:
+        name: "cheese"
+        syntaxDisplay:
+          s: "some cheese"
+          p: "some cheese($N units)"
+          inv: "cheese: $N"
+        amount: 0
+        use: true
+        show: true
+      knife:
+        name: "knife"
+        syntaxDisplay:
+          s: "a knife"
+          p: "$N knives"
+          inv: "knives: $N"
+        amount: 0
+        use: false
+        show: true
+      bocata:
+        name: "bocata"
+        syntaxDisplay:
+          s: "a bocata"
+          p: "$N bocatas"
+          inv: "bocatas: $N"
+        amount: 0
+        use: true
+        show: true
+      
+  sky:
+    name: "\n   Get to the sky!"
+    startingRoom: "hell_7_start"
+    description: "\n   You start in hell.\n   It's hot in there, so.... You should go somewhere cooler:\n    To the sky XD"
+    rooms:
+      hell_7_start:
+        arrivalText: "Floor: -7, Start\n  It's hot in here.... I should find a way out...\n  Perhaps... if I could find Lucifer...."
+        options:
+          's':
+            text: "Go down"
+            action:
+              text: "You can't go down... You are at the bottom of hell..."
+              repeatTimes: -1
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_6_main: 1
+            nextRoom: "hell_6_main"
+          'q':
+            text: "Search around"
+            action:
+              text: "This place is empty as hell..."
+              items:
+                point: 5
+              repeatTimes: 1
+          'd':
+            text: "Go to next room"
+            nextRoom: "hell_7_1"
+      hell_7_1:
+        arrivalText: "Floor: -7, 1\n  Something shines here... With a dark red color..."
+        options:
+          's':
+            text: "Go down"
+            action:
+              text: "You can't go down... You are at the bottom of hell..."
+              repeatTimes: -1
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_6_main: 1
+            nextRoom: "hell_6_main"
+          'q':
+            text: "Search around"
+            action:
+              text: "Hum... What is this? They seem red pearls..."
+              items:
+                point: 5
+                hellPearl: 10
+              repeatTimes: 3
+          'd':
+            text: "Go to next room"
+            nextRoom: "hell_7_2"
+          'a':
+            text: "Go to previous room"
+            nextRoom: "hell_7_start"
+      hell_7_2:
+        arrivalText: "Floor: -7, 2\n (There is a soul in a corner...)"
+        options:
+          's':
+            text: "Go down"
+            action:
+              text: "You can't go down... You are at the bottom of hell..."
+              repeatTimes: -1
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_6_main: 1
+            nextRoom: "hell_6_main"
+          'q':
+            text: "Talk to the soul"
+            action:
+              text: "The soul is not talkative... It gave you some instruction about something... Some... secret door?"
+              items:
+                knowledge_secretDoor_hell_7_lucifer: 1
+                point: 15
+              repeatTimes: 1
+          'e':
+            text: "Go through secret door"
+            required:
+              knowledge_secretDoor_hell_7_lucifer: 1
+            action:
+              text: "You opened a secret door! :)"
+              items:
+                point: 10
+              repeatTimes: 1
+            nextRoom: "hell_7_lucifer"
+          'a':
+            text: "Go to previous room"
+            nextRoom: "hell_7_1"
+          'd':
+            text: "Go to next room"
+            action:
+              text: "There is no 'next room'. This is the end!!!! (find another way)"
+              repeatTimes: -1
+      hell_7_lucifer:
+        arrivalText: "Floor: -7, last\n This is a strange room... There is someone... Lucifer!"
+        options:
+          's':
+            text: "Go down"
+            action:
+              text: "You can't go down... You are at the bottom of hell..."
+              repeatTimes: -1
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_6_main: 1
+            nextRoom: "hell_6_main"
+          'q':
+            text: "Talk to Lucifer"
+            action:
+              text: "Lucifer was kind enough to tell you the way up :)"
+              items:
+                knowledge_secretDoor_hell_6_main: 1
+                point: 15
+              repeatTimes: 1
+          'a':
+            text: "Go to previous room"
+            nextRoom: "hell_7_2"
+          'd':
+            text: "Go to next room"
+            action:
+              text: "There is no 'next room'. This is the end!!!! (find another way)"
+              repeatTimes: -1
+      hell_6_main:
+        arrivalText: "Floor: -6, Start\n Nothing to do around here...."
+        options:
+          's':
+            text: "Go down"
+            nextRoom: "hell_7_start"
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_5_main: 1
+            nextRoom: "hell_5_main"
+          'd':
+            text: "Go to next room"
+            nextRoom: "hell_6_1"
+      hell_6_1:
+        arrivalText: "Floor: -6, 1\n (There is a soul in a corner...)"
+        options:
+          's':
+            text: "Go down"
+            nextRoom: "hell_7_main"
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_5_main: 1
+            nextRoom: "hell_5_main"
+          'q':
+            text: "Talk to the soul"
+            required:
+              hellPearl: 80
+            action:
+              text: "A knife in hell? It must be 'the knife of hell'..."
+              items:
+                knife: 1
+                point: 20
+              repeatTimes: 1
+          'a':
+            text: "Go to previous room"
+            nextRoom: "hell_6_main"
+          'd':
+            text: "Go to next room"
+            nextRoom: "hell_6_2"
+      hell_6_2:
+        arrivalText: "Floor: -6, 2\n Shiny things around...."
+        options:
+          's':
+            text: "Go down"
+            nextRoom: "hell_7_main"
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_5_main: 1
+            nextRoom: "hell_5_main"
+          'q':
+            text: "Search around"
+            action:
+              text: "Hum... What is this? They seem red pearls..."
+              items:
+                point: 5
+                hellPearl: 10
+              repeatTimes: 2
+          'a':
+            text: "Go to previous room"
+            nextRoom: "hell_6_1"
+          'd':
+            text: "Go to next room"
+            nextRoom: "hell_6_3"
+      hell_6_3:
+        arrivalText: "Floor: -6, 3\n And many more shiny things around!"
+        options:
+          's':
+            text: "Go down"
+            nextRoom: "hell_7_main"
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_5_main: 1
+            nextRoom: "hell_5_main"
+          'q':
+            text: "Search around"
+            action:
+              text: "Hum... What is this? They seem red pearls..."
+              items:
+                point: 5
+                hellPearl: 7
+              repeatTimes: 3
+          'a':
+            text: "Go to previous room"
+            nextRoom: "hell_6_2"
+          'd':
+            text: "Go to next room"
+            nextRoom: "hell_6_4"
+      hell_6_4:
+        arrivalText: "Floor: -6, 4\n And many more shiny things around!"
+        options:
+          's':
+            text: "Go down"
+            nextRoom: "hell_7_main"
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_5_main: 1
+            nextRoom: "hell_5_main"
+          'q':
+            text: "Search around"
+            action:
+              text: "Hum... What is this? They seem red pearls..."
+              items:
+                point: 10
+                hellPearl: 10
+              repeatTimes: 3
+          'a':
+            text: "Go to previous room"
+            nextRoom: "hell_6_3"
+          'd':
+            text: "Go to next room"
+            nextRoom: "hell_6_5"
+          'e':
+            text: "Go through secret door"
+            required:
+              knowledge_secretDoor_hell_6_lucifer: 1
+            action:
+              text: "You opened a secret door! :)"
+              items:
+                point: 10
+              repeatTimes: 1
+            nextRoom: "hell_6_lucifer"
+      hell_6_5:
+        arrivalText: "Floor: -6, 5\n There is a soul here. But it won't talk to you... :("
+        options:
+          's':
+            text: "Go down"
+            nextRoom: "hell_7_main"
+          'w':
+            text: "Go up"
+            required:
+              knowledge_secretDoor_hell_5_main: 1
+            nextRoom: "hell_5_main"
+          'q':
+            text: "Stab the soul"
+            required:
+              knife: 1
+            action:
+              text: "You killed it! It dropped something..."
+              items:
+                point: 10
+                hellPearl: 10
+                knowledge_secretDoor_hell_6_lucifer: 1
+              repeatTimes: 1
+          'a':
+            text: "Go to previous room"
+            nextRoom: "hell_6_4"
+          'd':
+            text: "Go to next room"
+            action:
+              text: "There is no 'next room'. This is the end!!!! (find another way)"
+              repeatTimes: -1
+      hell_6_lucifer:
+        arrivalText: "Floor: -6, last\n Lucifer again...."
+        options:
+          's':
+            text: "Not implemented yet..."      
+    requirements:
+      point: 
+        name: "point"
+        syntaxDisplay: 
+          s: "a point"
+          p: "$N points"
+          inv: "points: $N"
+        amount: 0
+        use: true
+        show: true
+      hellPearl: 
+        name: "hell pearl"
+        syntaxDisplay: 
+          s: "a hell pearl"
+          p: "$N hell pearls"
+          inv: "hell pearls: $N"
+        amount: 0
+        use: true
+        show: true
+      knowledge_secretDoor_hell_7_lucifer:
+        name: "knowledge secret door"
+        syntaxDisplay: 
+          s: "knowledge about a secret door"
+          p: "knowledge about $N secret doors"
+        amount: 0
+        use: false
+      knowledge_secretDoor_hell_6_main:
+        name: "knowledge secret door"
+        syntaxDisplay: 
+          s: "knowledge about a way up"
+          p: "knowledge about $N ways up"
+        amount: 0
+        use: false
+      knowledge_secretDoor_hell_6_lucifer:
+        name: "knowledge secret door"
+        syntaxDisplay: 
+          s: "knowledge about a secret door"
+          p: "knowledge about $N secret doors"
+        amount: 0
+        use: false
+      knowledge_secretDoor_hell_5_main:
+        name: "knowledge secret door"
+        syntaxDisplay: 
+          s: "knowledge about a way up"
+          p: "knowledge about $N ways up"
+        amount: 0
+        use: false
+      knife:
+        name: "knife"
+        syntaxDisplay: 
+          s: "a knife"
+          p: "$N knives"
+          inv: "knives: $N"
+        amount: 0
+        use: false
+        show: true
+      
